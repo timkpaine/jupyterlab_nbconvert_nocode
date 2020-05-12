@@ -13,13 +13,8 @@ include Makefile
 graft tests
 
 # Documentation
-graft docs
-exclude docs/\#*
+prune docs
 
-# docs subdirs we want to skip
-prune docs/build
-prune docs/gh-pages
-prune docs/dist
 
 # Patterns to exclude from any directory
 global-exclude *~

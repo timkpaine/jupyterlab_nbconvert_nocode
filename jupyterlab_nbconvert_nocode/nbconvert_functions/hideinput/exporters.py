@@ -39,7 +39,6 @@ class HTMLHideCodeExporter(HTMLExporter):
 class PDFHideCodeExporter(PDFExporter):
     export_from_notebook = "PDF - No Code"
 
-
     def _file_extension_default(self):
         return '.pdf'
 

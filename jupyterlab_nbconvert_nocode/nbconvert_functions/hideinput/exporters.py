@@ -20,6 +20,8 @@ def export_html(nbpath, template=_html_no_code_template):
 
 
 class HTMLHideCodeExporter(HTMLExporter):
+    export_from_notebook = "HTML - No Code"
+
     # exclude_input = True
     def _file_extension_default(self):
         return '.html'
@@ -35,6 +37,9 @@ class HTMLHideCodeExporter(HTMLExporter):
 
 
 class PDFHideCodeExporter(PDFExporter):
+    export_from_notebook = "PDF - No Code"
+
+
     def _file_extension_default(self):
         return '.pdf'
 

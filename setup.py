@@ -56,8 +56,8 @@ setup(
     zip_safe=False,
     entry_points={
         'nbconvert.exporters': [
-            'pdf_hidecode = jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:PDFHideCodeExporter',
-            'html_hidecode = jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:HTMLHideCodeExporter',
+            'pdf_nocode = jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:PDFHideCodeExporter',
+            'html_nocode = jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:HTMLHideCodeExporter',
         ],
     },
     extras_require={

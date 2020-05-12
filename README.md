@@ -8,3 +8,4 @@ A simple helper library with 2 NBConvert exporters for PDF/HTML export with no c
 [![PyPI](https://img.shields.io/pypi/v/jupyterlab_nbconvert_nocode.svg)](https://pypi.python.org/pypi/jupyterlab_nbconvert_nocode)
 [![npm](https://img.shields.io/npm/v/jupyterlab_nbconvert_nocode.svg)](https://www.npmjs.com/package/jupyterlab_nbconvert_nocode)
 
+![](https://raw.githubusercontent.com/timkpaine/jupyterlab_nbconvert_nocode/master/docs/1.png)

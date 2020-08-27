@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = jupyterlab_commands
+SPHINXPROJ    = jupyterlab_nbconvert_nocode
 SOURCEDIR     = .
 BUILDDIR      = _build
 

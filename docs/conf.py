@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# jupyterlab_commands documentation build configuration file, created by
+# jupyterlab_nbconvert_nocode documentation build configuration file, created by
 # sphinx-quickstart on Fri Jan 12 22:07:11 2018.
 #
 # This file is execfile()d with the current directory set to its
@@ -50,7 +50,7 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = 'jupyterlab_commands'
+project = 'jupyterlab_nbconvert_nocode'
 copyright = '2018, Tim Paine'
 author = 'Tim Paine'
 
@@ -58,7 +58,7 @@ author = 'Tim Paine'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-_version_py = os.path.join('..', 'jupyterlab_commands', '_version.py')
+_version_py = os.path.join('..', 'jupyterlab_nbconvert_nocode', '_version.py')
 version_ns = {}
 
 with open(_version_py, mode='r') as version_file:
@@ -125,7 +125,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'jupyterlab_commandsdoc'
+htmlhelp_basename = 'jupyterlab_nbconvert_nocodedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -152,7 +152,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'jupyterlab_commands.tex', 'jupyterlab_commands Documentation',
+    (master_doc, 'jupyterlab_nbconvert_nocode.tex', 'jupyterlab_nbconvert_nocode Documentation',
      'Tim Paine', 'manual'),
 ]
 
@@ -162,7 +162,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'jupyterlab_commands', 'jupyterlab_commands Documentation',
+    (master_doc, 'jupyterlab_nbconvert_nocode', 'jupyterlab_nbconvert_nocode Documentation',
      [author], 1)
 ]
 
@@ -173,8 +173,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'jupyterlab_commands', 'jupyterlab_commands Documentation',
-     author, 'jupyterlab_commands', 'One line description of project.',
+    (master_doc, 'jupyterlab_nbconvert_nocode', 'jupyterlab_nbconvert_nocode Documentation',
+     author, 'jupyterlab_nbconvert_nocode', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -201,7 +201,7 @@ def run_copyreadme(_):
 
 def run_apidoc(_):
     out_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'api'))
-    jupyterlab_commands_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'jupyterlab_commands'))
+    jupyterlab_nbconvert_nocode_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'jupyterlab_nbconvert_nocode'))
     cmd_path = 'sphinx-apidoc'
     if hasattr(sys, 'real_prefix'):  # Check to see if we are in a virtualenv
         # If we are, assemble the path manually
@@ -211,7 +211,7 @@ def run_apidoc(_):
                            '-M',
                            '-o',
                            out_dir,
-                           jupyterlab_commands_dir,
+                           jupyterlab_nbconvert_nocode_dir,
                            '--force'])
 
 

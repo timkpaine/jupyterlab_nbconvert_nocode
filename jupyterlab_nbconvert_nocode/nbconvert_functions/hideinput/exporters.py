@@ -1,6 +1,5 @@
 import os
 import os.path
-from nbconvert.nbconvertapp import NbConvertApp
 from nbconvert.exporters.html import HTMLExporter
 from nbconvert.exporters.pdf import PDFExporter
 from .utils import ENV_VARS
@@ -12,10 +11,12 @@ _html_no_code_email_template = os.environ.get(ENV_VARS['export_html_email'], '')
 
 
 def export_pdf(nbpath, template=_pdf_no_code_template):
+    from nbconvert.nbconvertapp import NbConvertApp
     NbConvertApp.launch_instance([nbpath, '--template', template, '--to', 'pdf'])
 
 
 def export_html(nbpath, template=_html_no_code_template):
+    from nbconvert.nbconvertapp import NbConvertApp
     NbConvertApp.launch_instance([nbpath, '--template', template, '--to', 'html'])
 
 

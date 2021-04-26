@@ -1,5 +1,5 @@
-{%- extends 'display_priority.tpl' -%}
-{% from 'mathjax.tpl' import mathjax %}
+{%- extends 'display_priority.j2' -%}
+{% from 'mathjax.html.j2' import mathjax %}
 
 {%- block header -%}
 <!DOCTYPE html>
@@ -41,14 +41,14 @@ div#notebook-container{
   div.cell {
     display: block;
     page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
   }
-  div.output { 
+  div.output_wrapper {
     display: block;
-    page-break-inside: avoid; 
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
   }
 }
 </style>
@@ -108,7 +108,7 @@ In&nbsp;[&nbsp;]:
 {% endif %}
 {%- endblock empty_in_prompt %}
 
-{# 
+{#
   output_prompt doesn't do anything in HTML,
   because there is a prompt div in each output area (see output block)
 #}
@@ -268,8 +268,8 @@ var element = $('#{{ div_id }}');
 
 {%- block data_widget_state scoped %}
 {% set div_id = uuid4() %}
-{% set datatype_list = output.data | filter_data_type %} 
-{% set datatype = datatype_list[0]%} 
+{% set datatype_list = output.data | filter_data_type %}
+{% set datatype = datatype_list[0]%}
 <div id="{{ div_id }}"></div>
 <div class="output_subarea output_widget_state {{ extra_class }}">
 <script type="text/javascript">
@@ -283,8 +283,8 @@ var element = $('#{{ div_id }}');
 
 {%- block data_widget_view scoped %}
 {% set div_id = uuid4() %}
-{% set datatype_list = output.data | filter_data_type %} 
-{% set datatype = datatype_list[0]%} 
+{% set datatype_list = output.data | filter_data_type %}
+{% set datatype = datatype_list[0]%}
 <div id="{{ div_id }}"></div>
 <div class="output_subarea output_widget_view {{ extra_class }}">
 <script type="text/javascript">
@@ -297,7 +297,7 @@ var element = $('#{{ div_id }}');
 {%- endblock data_widget_view -%}
 
 {%- block footer %}
-{% set mimetype = 'application/vnd.jupyter.widget-state+json'%} 
+{% set mimetype = 'application/vnd.jupyter.widget-state+json'%}
 {% if mimetype in nb.metadata.get("widgets",{})%}
 <script type="{{ mimetype }}">
 {{ nb.metadata.widgets[mimetype] | json_dumps }}

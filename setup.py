@@ -2,11 +2,9 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-from jupyter_packaging import ensure_python, get_version
+from jupyter_packaging import get_data_files, get_version
 
 pjoin = path.join
-
-ensure_python(('2.7', '>=3.3'))
 
 name = 'jupyterlab_nbconvert_nocode'
 here = path.abspath(path.dirname(__file__))
@@ -17,6 +15,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 requires = [
     'jupyterlab>=1.0.0',
+    'nbconvert>=6.0.0',
 ]
 
 dev_requires = requires + [
@@ -41,8 +40,6 @@ setup(
 
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -51,8 +48,11 @@ setup(
     ],
     keywords='jupyter jupyterlab',
     packages=find_packages(exclude=['tests', ]),
+    python_requries='>=3.6',
     include_package_data=True,
-    package_data={'': ['jupyterlab_nbconvert_nocode/nbconvert_functions/hideinput/templates/*']},
+    data_files=get_data_files([
+        ("share", str(pjoin(here, "share")), "**"),
+    ]),
     zip_safe=False,
     entry_points={
         'nbconvert.exporters': [

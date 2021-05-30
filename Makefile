@@ -5,8 +5,8 @@ tests: lint ## run the tests
 lint: ## run linter
 	python -m flake8 jupyterlab_nbconvert_nocode setup.py
 
-fix:  ## run autopep8/tslint fix
-	python -m autopep8 --in-place -r -a -a jupyterlab_nbconvert_nocode/
+fix:  ## run linter to
+	python -m black jupyterlab_nbconvert_nocode/ setup.py
 
 clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf

@@ -1,21 +1,12 @@
 
-testpy: ## Clean and Make unit tests
-	python3.7 -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode
-
 tests: lint ## run the tests
-	python3.7 -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
+	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
 
 lint: ## run linter
-	flake8 jupyterlab_nbconvert_nocode setup.py
+	python -m flake8 jupyterlab_nbconvert_nocode setup.py
 
 fix:  ## run autopep8/tslint fix
-	autopep8 --in-place -r -a -a jupyterlab_nbconvert_nocode/
-
-annotate: ## MyPy type annotation check
-	mypy -s jupyterlab_nbconvert_nocode
-
-annotate_l: ## MyPy type annotation check - count only
-	mypy -s jupyterlab_nbconvert_nocode | wc -l
+	python -m autopep8 --in-place -r -a -a jupyterlab_nbconvert_nocode/
 
 clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf
@@ -29,14 +20,15 @@ docs:  ## make documentation
 	open ./docs/_build/html/index.html
 
 install:  ## install to site-packages
-	pip3 install .
+	python -m pip install .
 
 dist:  ## create dists
 	rm -rf dist build
-	python3.7 setup.py sdist bdist_wheel
+	python setup.py sdist bdist_wheel
+	python -m twine check dist/*
 
 publish: dist  ## dist to pypi and npm
-	twine check dist/* && twine upload dist/*
+	python -m twine upload dist/*
 
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
@@ -46,4 +38,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean install serverextension labextension test tests help docs dist
+.PHONY: clean install tests help docs dist

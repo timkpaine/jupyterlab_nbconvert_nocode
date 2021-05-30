@@ -7,16 +7,18 @@ from .utils import ENV_VARS
 
 def export_pdf(nbpath, template=None):
     from nbconvert.nbconvertapp import NbConvertApp
+
     if template is None:
-        template = os.environ.get(ENV_VARS['export_pdf'], 'hide_code_cells_pdf')
-    NbConvertApp.launch_instance([nbpath, '--template', template, '--to', 'pdf'])
+        template = os.environ.get(ENV_VARS["export_pdf"], "hide_code_cells_pdf")
+    NbConvertApp.launch_instance([nbpath, "--template", template, "--to", "pdf"])
 
 
 def export_html(nbpath, template=None):
     from nbconvert.nbconvertapp import NbConvertApp
+
     if template is None:
-        template = os.environ.get(ENV_VARS['export_html'], 'hide_code_cells_html')
-    NbConvertApp.launch_instance([nbpath, '--template', template, '--to', 'html'])
+        template = os.environ.get(ENV_VARS["export_html"], "hide_code_cells_html")
+    NbConvertApp.launch_instance([nbpath, "--template", template, "--to", "html"])
 
 
 class HTMLHideCodeExporter(HTMLExporter):
@@ -24,11 +26,11 @@ class HTMLHideCodeExporter(HTMLExporter):
 
     # exclude_input = True
     def _template_name_default(self):
-        return 'hide_code_cells_html'
+        return "hide_code_cells_html"
 
 
 class PDFHideCodeExporter(PDFExporter):
     export_from_notebook = "PDF - No Code"
 
     def _template_file_default(self):
-        return 'hide_code_cells_pdf'
+        return "hide_code_cells_pdf"

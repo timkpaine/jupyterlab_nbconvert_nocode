@@ -1,5 +1,6 @@
 import os
 import os.path
+from jupyter_core.paths import jupyter_path
 from nbconvert.exporters.html import HTMLExporter
 from nbconvert.exporters.pdf import PDFExporter
 from .utils import ENV_VARS
@@ -24,7 +25,6 @@ def export_html(nbpath, template=None):
 class HTMLHideCodeExporter(HTMLExporter):
     export_from_notebook = "HTML - No Code"
 
-    # exclude_input = True
     def _template_name_default(self):
         return "hide_code_cells_html"
 
@@ -32,5 +32,8 @@ class HTMLHideCodeExporter(HTMLExporter):
 class PDFHideCodeExporter(PDFExporter):
     export_from_notebook = "PDF - No Code"
 
-    def _template_file_default(self):
+    def _template_data_paths_default(self):
+        return jupyter_path("nbconvert", "templates", "hide_code_cells_pdf")
+
+    def _template_name_default(self):
         return "hide_code_cells_pdf"

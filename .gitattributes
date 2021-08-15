@@ -1,2 +1,3 @@
 jupyterlab_nbconvert_nocode/nbconvert_functions/hideinput/templates/*  linguist-vendored
 docs/* linguist-documentation
+*.ipynb  linguist-vendored

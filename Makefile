@@ -1,8 +1,8 @@
 
 tests: lint ## run the tests
 	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
-	jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to pdf_nocode
-	jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to html_nocode
+	# jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to pdf_nocode
+	# jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to html_nocode
 
 lint: ## run linter
 	python -m flake8 jupyterlab_nbconvert_nocode setup.py

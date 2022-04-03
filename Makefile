@@ -1,39 +1,29 @@
 testpy: ## Clean and Make unit tests
-	python -m pytest -v jupyterlab_email/tests --cov=jupyterlab_email --junitxml=python_junit.xml --cov-report=xml --cov-branch
-
-testjs: ## Clean and Make js tests
-	cd js; yarn test
+	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
 
 test: tests
-tests: testpy testjs ## run the tests
+tests: testpy  ## run the tests
 
 lintpy:  ## Black/flake8 python
-	python -m black --check jupyterlab_email setup.py docs/conf.py
-	python -m flake8 jupyterlab_email setup.py docs/conf.py
+	python -m black --check jupyterlab_nbconvert_nocode setup.py docs/conf.py
+	python -m flake8 jupyterlab_nbconvert_nocode setup.py docs/conf.py
 
-lintjs:  ## ESlint javascript
-	cd js; yarn lint
-
-lint: lintpy lintjs  ## run linter
+lint: lintpy  ## run linter
 
 fixpy:  ## Black python
-	python -m black jupyterlab_email/ setup.py docs/conf.py
+	python -m black jupyterlab_nbconvert_nocode/ setup.py docs/conf.py
 
-fixjs:  ## ESlint Autofix JS
-	cd js; yarn fix
-
-fix: fixpy fixjs  ## run black/tslint fix
+fix: fixpy  ## run black/tslint fix
 
 check: checks
 checks:  ## run lint and other checks
 	check-manifest
 
 build: clean  ## build python/javascript
-	python -m build .
+	python setup.py build
 
 develop:  ## install to site-packages in editable mode
 	python -m pip install --upgrade build pip setuptools twine wheel
-	cd js; yarn
 	python -m pip install -e .[develop]
 
 install:  ## install to site-packages
@@ -45,10 +35,7 @@ dist: clean build  ## create dists
 publishpy:  ## dist to pypi
 	python -m twine upload dist/* --skip-existing
 
-publishjs:  ## dist to npm
-	cd js; npm publish || echo "can't publish - might already exist"
-
-publish: dist publishpy publishjs  ## dist to pypi and npm
+publish: dist publishpy  ## dist to pypi and npm
 
 docs:  ## make documentation
 	make -C ./docs html
@@ -59,7 +46,6 @@ clean: ## clean the repository
 	find . -name "*.pyc" | xargs rm -rf
 	find . -name ".ipynb_checkpoints" | xargs  rm -rf
 	rm -rf .coverage coverage *.xml build dist *.egg-info lib node_modules .pytest_cache *.egg-info .autoversion .mypy_cache
-	rm -rf jupyterlab_email/labextension
 	# make -C ./docs clean
 	git clean -fd
 
@@ -71,4 +57,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: testjs testpy tests test lintpy lintjs lint fixpy fixjs fix checks check build develop install labextension dist publishpy publishjs publish docs clean
+.PHONY: testpy tests test lintpy lint fixpy fix checks check build develop install dist publishpy publish docs clean

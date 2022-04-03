@@ -1,14 +1,13 @@
 from codecs import open
 from os import path
 
-from jupyter_packaging import get_data_files, get_version
+from jupyter_packaging import get_data_files
 from setuptools import find_packages, setup
 
 pjoin = path.join
 
 name = "jupyterlab_nbconvert_nocode"
 here = path.abspath(path.dirname(__file__))
-version = get_version(pjoin(here, name, "_version.py"))
 
 with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
@@ -21,6 +20,7 @@ requires = [
 dev_requires = requires + [
     "black>=20.",
     "bump2version>=1.0.0",
+    "check-manifest",
     "flake8>=3.7.8",
     "flake8-black>=0.2.1",
     "jupyter_packaging",
@@ -33,7 +33,7 @@ dev_requires = requires + [
 
 setup(
     name=name,
-    version=version,
+    version="0.3.1",
     description="A simple helper library with 2 NBConvert exporters for PDF/HTML export with no code cells",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -59,7 +59,7 @@ setup(
     include_package_data=True,
     data_files=get_data_files(
         [
-            ("share", str(pjoin(here, "share")), "**"),
+            ("share", "share", "**"),
         ]
     ),
     zip_safe=False,
@@ -71,5 +71,6 @@ setup(
     },
     extras_require={
         "dev": dev_requires,
+        "develop": dev_requires,
     },
 )

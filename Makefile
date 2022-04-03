@@ -1,36 +1,53 @@
-
-tests: lint ## run the tests
+testpy: ## Clean and Make unit tests
 	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
-	# jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to pdf_nocode
-	# jupyter nbconvert jupyterlab_nbconvert_nocode/tests/Test.ipynb --to html_nocode
 
-lint: ## run linter
-	python -m flake8 jupyterlab_nbconvert_nocode setup.py
+test: tests
+tests: testpy  ## run the tests
 
-fix:  ## run linter to
-	python -m black jupyterlab_nbconvert_nocode/ setup.py
+lintpy:  ## Black/flake8 python
+	python -m black --check jupyterlab_nbconvert_nocode setup.py docs/conf.py
+	python -m flake8 jupyterlab_nbconvert_nocode setup.py docs/conf.py
 
-clean: ## clean the repository
-	find . -name "__pycache__" | xargs  rm -rf
-	find . -name "*.pyc" | xargs rm -rf
-	find . -name ".ipynb_checkpoints" | xargs  rm -rf
-	rm -rf .coverage coverage cover htmlcov logs build dist *.egg-info lib node_modules
-	# make -C ./docs clean
+lint: lintpy  ## run linter
+
+fixpy:  ## Black python
+	python -m black jupyterlab_nbconvert_nocode/ setup.py docs/conf.py
+
+fix: fixpy  ## run black/tslint fix
+
+check: checks
+checks:  ## run lint and other checks
+	check-manifest
+
+build: clean  ## build python/javascript
+	python -m build .
+
+develop:  ## install to site-packages in editable mode
+	python -m pip install --upgrade build pip setuptools twine wheel
+	python -m pip install -e .[develop]
+
+install:  ## install to site-packages
+	python -m pip install .
+
+dist: clean build  ## create dists
+	python -m twine check dist/*
+
+publishpy:  ## dist to pypi
+	python -m twine upload dist/* --skip-existing
+
+publish: dist publishpy  ## dist to pypi and npm
 
 docs:  ## make documentation
 	make -C ./docs html
 	open ./docs/_build/html/index.html
 
-install:  ## install to site-packages
-	python -m pip install .
-
-dist:  ## create dists
-	rm -rf dist build
-	python setup.py sdist bdist_wheel
-	python -m twine check dist/*
-
-publish: dist  ## dist to pypi and npm
-	python -m twine upload dist/*
+clean: ## clean the repository
+	find . -name "__pycache__" | xargs  rm -rf
+	find . -name "*.pyc" | xargs rm -rf
+	find . -name ".ipynb_checkpoints" | xargs  rm -rf
+	rm -rf .coverage coverage *.xml build dist *.egg-info lib node_modules .pytest_cache *.egg-info .autoversion .mypy_cache
+	# make -C ./docs clean
+	git clean -fd
 
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
@@ -40,4 +57,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean install tests help docs dist
+.PHONY: testpy tests test lintpy lint fixpy fix checks check build develop install dist publishpy publish docs clean

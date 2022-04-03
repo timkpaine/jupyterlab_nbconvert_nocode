@@ -1,6 +1,7 @@
 include LICENSE
 include README.md
 include CONTRIBUTING.md
+include CODE_OF_CONDUCT.md
 
 include requirements.txt
 include setup.cfg
@@ -10,6 +11,8 @@ include jest.config.js
 include Makefile
 
 graft tests
+recursive-include jupyterlab_nbconvert_nocode *.ipynb
+
 
 # Documentation
 prune docs

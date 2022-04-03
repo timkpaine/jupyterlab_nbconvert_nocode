@@ -72,5 +72,6 @@ setup(
     },
     extras_require={
         "dev": dev_requires,
+        "develop": dev_requires,
     },
 )

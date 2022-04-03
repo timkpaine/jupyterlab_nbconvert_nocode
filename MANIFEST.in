@@ -12,8 +12,7 @@ include Makefile
 
 graft tests
 recursive-include jupyterlab_nbconvert_nocode *.ipynb
-recursive-include jupyterlab_email *.tpl
-recursive-include jupyterlab_email *.tplx
+
 
 # Documentation
 prune docs

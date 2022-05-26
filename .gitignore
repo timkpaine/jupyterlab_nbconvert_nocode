@@ -163,7 +163,6 @@ ENV/
 .mypy_cache/
 
 .DS_Store
-yarn.lock
 .autoversion
 docs/api
 docs/index.md

@@ -33,7 +33,7 @@ dev_requires = requires + [
 
 setup(
     name=name,
-    version="0.3.1",
+    version="0.4.0",
     description="A simple helper library with 2 NBConvert exporters for PDF/HTML export with no code cells",
     long_description=long_description,
     long_description_content_type="text/markdown",

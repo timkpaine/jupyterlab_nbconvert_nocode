@@ -51,11 +51,7 @@ setup(
         "Framework :: Jupyter",
     ],
     keywords="jupyter jupyterlab",
-    packages=find_packages(
-        exclude=[
-            "tests",
-        ]
-    ),
+    packages=find_packages(),
     python_requries=">=3.8",
     include_package_data=True,
     data_files=get_data_files(

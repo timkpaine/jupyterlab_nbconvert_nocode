@@ -13,12 +13,12 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 requires = [
-    "jupyterlab>=1.0.0",
+    "jupyterlab>=3.5",
     "nbconvert>=6.0.0",
 ]
 
 dev_requires = requires + [
-    "black>=20.",
+    "black>=23",
     "bump2version>=1.0.0",
     "check-manifest",
     "flake8>=3.7.8",
@@ -44,9 +44,10 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: Jupyter",
     ],
     keywords="jupyter jupyterlab",
@@ -55,7 +56,7 @@ setup(
             "tests",
         ]
     ),
-    python_requries=">=3.7",
+    python_requries=">=3.8",
     include_package_data=True,
     data_files=get_data_files(
         [

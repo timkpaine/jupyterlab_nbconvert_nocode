@@ -8,7 +8,7 @@ build-backend = "hatchling.build"
 [project]
 name = "jupyterlab_nbconvert_nocode"
 description = "A simple helper library with 2 NBConvert exporters for PDF/HTML export with no code cells"
-version = "0.4.0"
+version = "0.4.1"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"

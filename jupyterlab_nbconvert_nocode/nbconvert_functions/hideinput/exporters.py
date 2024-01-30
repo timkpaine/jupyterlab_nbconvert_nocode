@@ -1,8 +1,10 @@
 import os
 import os.path
+
 from jupyter_core.paths import jupyter_path
 from nbconvert.exporters.html import HTMLExporter
 from nbconvert.exporters.pdf import PDFExporter
+
 from .utils import ENV_VARS
 
 

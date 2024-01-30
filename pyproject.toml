@@ -51,6 +51,7 @@ html_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporte
 develop = [
     "black>=23",
     "check-manifest",
+    "isort",
     "ruff",
     "pytest",
     "pytest-cov",

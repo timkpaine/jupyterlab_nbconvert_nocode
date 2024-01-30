@@ -43,6 +43,10 @@ dependencies = [
   "nbconvert>=6.0.0",
 ]
 
+[project.entry-points."nbconvert.exporters"]
+pdf_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:PDFHideCodeExporter"
+html_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:HTMLHideCodeExporter"
+
 [project.optional-dependencies]
 develop = [
     "black>=23",

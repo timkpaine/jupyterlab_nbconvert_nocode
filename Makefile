@@ -33,16 +33,6 @@ fix:  ## ruff/isort python
 
 format: fix
 
-#################
-# Other Checks #
-#################
-check: checks
-
-checks: check-manifest  ## run security, packaging, and other checks
-
-check-manifest:  ## run manifest checker for sdist
-	check-manifest -v
-
 ################
 # Distribution #
 ################
@@ -75,4 +65,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: tests test lint fix format checks check check-manifest build develop install dist publishpy publish clean
+.PHONY: tests test lint fix format build develop install dist publishpy publish clean

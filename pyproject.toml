@@ -82,6 +82,7 @@ exclude = [
     "/.mypy_cache",
     "/.ruff_cache",
     "/dist",
+    "/docs",
     "/Makefile",
 ]
 

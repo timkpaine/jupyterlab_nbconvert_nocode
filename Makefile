@@ -1,25 +1,7 @@
-testpy: ## Clean and Make unit tests
-	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --junitxml=python_junit.xml --cov-report=xml --cov-branch
-
-test: tests
-tests: testpy  ## run the tests
-
-lintpy:  ## Black/flake8 python
-	python -m black --check jupyterlab_nbconvert_nocode setup.py docs/conf.py
-	python -m flake8 jupyterlab_nbconvert_nocode setup.py docs/conf.py
-
-lint: lintpy  ## run linter
-
-fixpy:  ## Black python
-	python -m black jupyterlab_nbconvert_nocode/ setup.py docs/conf.py
-
-fix: fixpy  ## run black/tslint fix
-
-check: checks
-checks:  ## run lint and other checks
-	check-manifest
-
-build: clean  ## build python/javascript
+###############
+# Build Tools #
+###############
+build:  ## build python/javascript
 	python -m build .
 
 develop:  ## install to site-packages in editable mode
@@ -29,6 +11,41 @@ develop:  ## install to site-packages in editable mode
 install:  ## install to site-packages
 	python -m pip install .
 
+###########
+# Testing #
+###########
+testpy: ## clean and Make unit tests
+	python -m pytest -v jupyterlab_nbconvert_nocode/tests --junitxml=junit.xml --cov=jupyterlab_nbconvert_nocode --cov-report=xml:.coverage.xml --cov-branch --cov-fail-under=0 --cov-report term-missing
+
+test: tests
+tests: testpy  ## run the tests
+
+###########
+# Linting #
+###########
+lint:  ## ruff/isort python
+	python -m isort jupyterlab_nbconvert_nocode setup.py
+	python -m ruff jupyterlab_nbconvert_nocode setup.py
+
+fix:  ## ruff/isort python
+	python -m isort jupyterlab_nbconvert_nocode setup.py
+	python -m ruff format jupyterlab_nbconvert_nocode setup.py
+
+format: fix
+
+#################
+# Other Checks #
+#################
+check: checks
+
+checks: check-manifest  ## run security, packaging, and other checks
+
+check-manifest:  ## run manifest checker for sdist
+	check-manifest -v
+
+################
+# Distribution #
+################
 dist: clean build  ## create dists
 	python -m twine check dist/*
 
@@ -37,18 +54,19 @@ publishpy:  ## dist to pypi
 
 publish: dist publishpy  ## dist to pypi and npm
 
-docs:  ## make documentation
-	make -C ./docs html
-	open ./docs/_build/html/index.html
-
+############
+# Cleaning #
+############
 clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf
 	find . -name "*.pyc" | xargs rm -rf
 	find . -name ".ipynb_checkpoints" | xargs  rm -rf
-	rm -rf .coverage coverage *.xml build dist *.egg-info lib node_modules .pytest_cache *.egg-info .autoversion .mypy_cache
-	# make -C ./docs clean
+	rm -rf .coverage coverage *.xml build dist *.egg-info lib node_modules .pytest_cache *.egg-info
 	git clean -fd
 
+###########
+# Helpers #
+###########
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
 help:
@@ -57,4 +75,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: testpy tests test lintpy lint fixpy fix checks check build develop install dist publishpy publish docs clean
+.PHONY: tests test lint fix format checks check check-manifest build develop install dist publishpy publish clean

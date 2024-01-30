@@ -1,2 +1,114 @@
 [build-system]
-requires = ["setuptools", "wheel", "jupyter-packaging<1"]
+requires = [
+    "hatchling>=1.3.1",
+    "hatch-jupyter-builder",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyterlab_nbconvert_nocode"
+description = "A simple helper library with 2 NBConvert exporters for PDF/HTML export with no code cells"
+version = "0.4.0"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [
+    { name = "Tim Paine", email = "t.paine154@gmail.com" },
+]
+keywords = [
+    "Jupyter",
+    "JupyterLab",
+    "Notebook",
+    "Notebooks",
+    "Report",
+    "Reports",
+    "Reporting",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = [
+  "jupyterlab>=3.5",
+  "nbconvert>=6.0.0",
+]
+
+[project.entry-points."nbconvert.exporters"]
+pdf_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:PDFHideCodeExporter"
+html_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporters:HTMLHideCodeExporter"
+
+[project.optional-dependencies]
+develop = [
+    "black>=23",
+    "check-manifest",
+    "isort",
+    "ruff",
+    "pytest",
+    "pytest-cov",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+repository = "https://github.com/timkpaine/jupyterlab_nbconvert_nocode"
+homepage = "https://github.com/timkpaine/jupyterlab_nbconvert_nocode"
+
+[tool.hatch.build.sources]
+src = "/"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/jupyterlab_nbconvert_nocode",
+    "/setup.py",
+    "LICENSE",
+    "README.md",
+]
+exclude = [
+    "/.bumpversion.cfg",
+    "/.github",
+    "/.gitignore",
+    "/.mypy_cache",
+    "/.ruff_cache",
+    "/dist",
+    "/docs",
+    "/Makefile",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/jupyterlab_nbconvert_nocode",
+]
+exclude = [
+    "/.github",
+    "/.gitignore",
+    "/.mypy_cache",
+    "/.ruff_cache",
+    "/pyproject.toml",
+    "/dist",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyterlab_nbconvert_nocode/templates" = "share/jupyter/nbconvert/templates"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.isort]
+case-sensitive = true
+known-first-party = ["jupyterlab_nbconvert_nocode"]
+relative-imports-order = "closest-to-furthest"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401", "F403"]

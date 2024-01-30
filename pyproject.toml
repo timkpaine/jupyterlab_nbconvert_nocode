@@ -71,15 +71,18 @@ src = "/"
 [tool.hatch.build.targets.sdist]
 include = [
     "/jupyterlab_nbconvert_nocode",
+    "/setup.py",
     "LICENSE",
     "README.md",
 ]
 exclude = [
+    "/.bumpversion.cfg",
     "/.github",
     "/.gitignore",
     "/.mypy_cache",
     "/.ruff_cache",
     "/dist",
+    "/Makefile",
 ]
 
 [tool.hatch.build.targets.wheel]

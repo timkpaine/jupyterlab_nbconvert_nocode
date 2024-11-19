@@ -48,9 +48,7 @@ html_nocode = "jupyterlab_nbconvert_nocode.nbconvert_functions.hideinput.exporte
 
 [project.optional-dependencies]
 develop = [
-    "black>=23",
     "check-manifest",
-    "isort",
     "ruff",
     "pytest",
     "pytest-cov",
@@ -104,10 +102,20 @@ exclude = [
 [tool.ruff]
 line-length = 120
 
-[tool.ruff.isort]
-case-sensitive = true
-known-first-party = ["jupyterlab_nbconvert_nocode"]
-relative-imports-order = "closest-to-furthest"
+[tool.ruff.lint]
+extend-select = ["I"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.isort]
+combine-as-imports = true
+default-section = "third-party"
+known-first-party = ["nbprint"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]

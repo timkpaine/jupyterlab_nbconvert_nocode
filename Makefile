@@ -23,12 +23,12 @@ tests: testpy  ## run the tests
 ###########
 # Linting #
 ###########
-lint:  ## ruff/isort python
-	python -m isort jupyterlab_nbconvert_nocode setup.py
-	python -m ruff jupyterlab_nbconvert_nocode setup.py
+lint:  ## ruff python
+	python -m ruff check jupyterlab_nbconvert_nocode setup.py
+	python -m ruff format --check jupyterlab_nbconvert_nocode setup.py
 
-fix:  ## ruff/isort python
-	python -m isort jupyterlab_nbconvert_nocode setup.py
+fix:  ## ruff python
+	python -m ruff check --fix jupyterlab_nbconvert_nocode setup.py
 	python -m ruff format jupyterlab_nbconvert_nocode setup.py
 
 format: fix

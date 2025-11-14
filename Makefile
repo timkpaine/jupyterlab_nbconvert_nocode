@@ -1,62 +1,122 @@
-###############
-# Build Tools #
-###############
-build:  ## build python/javascript
-	python -m build .
+#########
+# BUILD #
+#########
+.PHONY: develop build install
 
-develop:  ## install to site-packages in editable mode
-	python -m pip install --upgrade build pip setuptools twine wheel
-	python -m pip install -e .[develop]
+develop:  ## install dependencies and build library
+	uv pip install -e .[develop]
 
-install:  ## install to site-packages
-	python -m pip install .
+requirements:  ## install prerequisite python build requirements
+	python -m pip install --upgrade pip toml
+	python -m pip install `python -c 'import toml; c = toml.load("pyproject.toml"); print("\n".join(c["build-system"]["requires"]))'`
+	python -m pip install `python -c 'import toml; c = toml.load("pyproject.toml"); print(" ".join(c["project"]["optional-dependencies"]["develop"]))'`
 
-###########
-# Testing #
-###########
-testpy: ## clean and Make unit tests
-	python -m pytest -v jupyterlab_nbconvert_nocode/tests --junitxml=junit.xml --cov=jupyterlab_nbconvert_nocode --cov-report=xml:.coverage.xml --cov-branch --cov-fail-under=0 --cov-report term-missing
+build:  ## build the python library
+	python -m build -n
 
-test: tests
-tests: testpy  ## run the tests
+install:  ## install library
+	uv pip install .
 
-###########
-# Linting #
-###########
-lint:  ## ruff python
-	python -m ruff check jupyterlab_nbconvert_nocode setup.py
-	python -m ruff format --check jupyterlab_nbconvert_nocode setup.py
+#########
+# LINTS #
+#########
+.PHONY: lint-py lint-docs fix-py fix-docs lint lints fix format
 
-fix:  ## ruff python
-	python -m ruff check --fix jupyterlab_nbconvert_nocode setup.py
-	python -m ruff format jupyterlab_nbconvert_nocode setup.py
+lint-py:  ## lint python with ruff
+	python -m ruff check jupyterlab_nbconvert_nocode
+	python -m ruff format --check jupyterlab_nbconvert_nocode
 
+lint-docs:  ## lint docs with mdformat and codespell
+	python -m mdformat --check README.md 
+	python -m codespell_lib README.md 
+
+fix-py:  ## autoformat python code with ruff
+	python -m ruff check --fix jupyterlab_nbconvert_nocode
+	python -m ruff format jupyterlab_nbconvert_nocode
+
+fix-docs:  ## autoformat docs with mdformat and codespell
+	python -m mdformat README.md 
+	python -m codespell_lib --write README.md 
+
+lint: lint-py lint-docs  ## run all linters
+lints: lint
+fix: fix-py fix-docs  ## run all autoformatters
 format: fix
 
 ################
-# Distribution #
+# Other Checks #
 ################
-dist: clean build  ## create dists
+.PHONY: check-manifest checks check
+
+check-manifest:  ## check python sdist manifest with check-manifest
+	check-manifest -v
+
+checks: check-manifest
+
+# Alias
+check: checks
+
+#########
+# TESTS #
+#########
+.PHONY: test coverage tests
+
+test:  ## run python tests
+	python -m pytest -v jupyterlab_nbconvert_nocode/tests
+
+coverage:  ## run tests and collect test coverage
+	python -m pytest -v jupyterlab_nbconvert_nocode/tests --cov=jupyterlab_nbconvert_nocode --cov-report term-missing --cov-report xml
+
+# Alias
+tests: test
+
+###########
+# VERSION #
+###########
+.PHONY: show-version patch minor major
+
+show-version:  ## show current library version
+	@bump-my-version show current_version
+
+patch:  ## bump a patch version
+	@bump-my-version bump patch
+
+minor:  ## bump a minor version
+	@bump-my-version bump minor
+
+major:  ## bump a major version
+	@bump-my-version bump major
+
+########
+# DIST #
+########
+.PHONY: dist dist-build dist-sdist dist-local-wheel publish
+
+dist-build:  # build python dists
+	python -m build -w -s
+
+dist-check:  ## run python dist checker with twine
 	python -m twine check dist/*
 
-publishpy:  ## dist to pypi
-	python -m twine upload dist/* --skip-existing
+dist: clean dist-build dist-check  ## build all dists
 
-publish: dist publishpy  ## dist to pypi and npm
+publish: dist  ## publish python assets
 
-############
-# Cleaning #
-############
+#########
+# CLEAN #
+#########
+.PHONY: deep-clean clean
+
+deep-clean: ## clean everything from the repository
+	git clean -fdx
+
 clean: ## clean the repository
-	find . -name "__pycache__" | xargs  rm -rf
-	find . -name "*.pyc" | xargs rm -rf
-	find . -name ".ipynb_checkpoints" | xargs  rm -rf
-	rm -rf .coverage coverage *.xml build dist *.egg-info lib node_modules .pytest_cache *.egg-info
-	git clean -fd
+	rm -rf .coverage coverage cover htmlcov logs build dist *.egg-info
 
-###########
-# Helpers #
-###########
+############################################################################################
+
+.PHONY: help
+
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
 help:
@@ -64,5 +124,3 @@ help:
 
 print-%:
 	@echo '$*=$($*)'
-
-.PHONY: tests test lint fix format build develop install dist publishpy publish clean

@@ -1,3 +1,9 @@
-jupyterlab_nbconvert_nocode/nbconvert_functions/hideinput/templates/*  linguist-vendored
+examples/* linguist-documentation
 docs/* linguist-documentation
-*.ipynb  linguist-vendored
+*.ipynb linguist-documentation
+Makefile linguist-documentation
+
+*.md text=auto eol=lf
+*.py text=auto eol=lf
+*.toml text=auto eol=lf
+*.yaml text=auto eol=lf

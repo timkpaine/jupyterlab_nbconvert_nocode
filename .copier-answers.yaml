@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier
+_commit: 973c39c
+_src_path: https://github.com/python-project-templates/base.git
+add_docs: false
+add_extension: python
+add_wiki: false
+email: t.paine154@gmail.com
+github: timkpaine
+project_description: A simple helper library with 2 NBConvert exporters for PDF/HTML
+    export with no code cells
+project_name: jupyterlab-nbconvert-nocode
+python_version_primary: '3.10'
+team: the jupyterlab-nbconvert-nocode authors

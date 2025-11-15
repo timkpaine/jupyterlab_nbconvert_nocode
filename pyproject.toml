@@ -8,7 +8,7 @@ authors = [{name = "the jupyterlab-nbconvert-nocode authors", email = "t.paine15
 description = "A simple helper library with 2 NBConvert exporters for PDF/HTML export with no code cells"
 readme = "README.md"
 license = { text = "Apache-2.0" }
-version = "0.4.1"
+version = "0.5.0"
 requires-python = ">=3.10"
 keywords = [
     "Jupyter",
@@ -65,7 +65,7 @@ Repository = "https://github.com/timkpaine/jupyterlab-nbconvert-nocode"
 Homepage = "https://github.com/timkpaine/jupyterlab-nbconvert-nocode"
 
 [tool.bumpversion]
-current_version = "0.4.1"
+current_version = "0.5.0"
 commit = true
 tag = true
 commit_args = "-s"
